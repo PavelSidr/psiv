@@ -1,0 +1,27 @@
+Добрый день.
+А каким образом произвести перепубликование из одной базы  в другую
+ 
+- настроить транспорт  из  старой базы в новую  и выполнить скрипт
+INSERT INTO status_history(
+            id, action_date, author, comments, object_id, object_type, original_node, 
+            "owner", receipt_date, ssn, status, prev_status, "statement", 
+            xml_data)
+select nextval('register_sequence'), '2009-12-04 14:02:13.892', st.author, '', ps.id, 'RStateStructure', null, st.owner, null,nextval('ssn_sequence'),
+'PUBLISHED', st.status, '','' 
+from r_state_structure ps inner join status st on ps.id=st.id;
+ 
+INSERT INTO status_history(
+            id, action_date, author, comments, object_id, object_type, original_node, 
+            "owner", receipt_date, ssn, status, prev_status, "statement", 
+            xml_data)
+select nextval('register_sequence'), '2009-12-04 14:02:13.892', st.author, '', ps.id, 'PsPassport', null, st.owner, null, nextval('ssn_sequence'),
+'PUBLISHED', st.status, '','' 
+from ps_passport ps inner join status st on ps.id=st.id;
+ 
+пс.  при этом не должно  быть  других контрагентов , а то им тоже все уйде
+
+____________________________________________________________________________________________
+ђазворот база из бэкапа
+sudo -H -u postgres /usr/bin/pg_restore -i -U postgres -d rgu -v /home/psid/shared/rgu.backup
+
+pg_restore /home/guper/rgu.backup | psql --dbname rgu --username postgres 
