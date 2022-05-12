@@ -1,0 +1,46 @@
+select id, title from r_state_structure
+where id > 200000000000
+-
+select id, full_title from ps_passport
+where id > 200000000000
+----- услуги
+
+select p.id, p.full_title, p.short_title, st.title  from ps_passport p, r_state_structure st
+where p.id > 200000000000 and r_state_structure in (select id from r_state_structure
+where st.id > 200000000000)
+
+select st.id, st.title, p.id, p.full_title, p.short_title from r_state_structure st, ps_passport p
+where st.id=p.r_state_structure and  p.r_state_structure in (select id from r_state_structure
+where id > 200000000000) ORDER BY p.id
+
+select st.id, st.title, p.id, p.full_title, p.short_title from r_state_structure st, ps_passport p
+where st.id=p.r_state_structure and  p.r_state_structure in (select id from r_state_structure
+where id > 200000000000) and not p.full_title like '(%' and not p.full_title like '(Те%' and not p.full_title like '1%' and not p.full_title like 'q%' and not p.full_title like 'e%' and not p.full_title like '2%' ORDER BY p.id
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
